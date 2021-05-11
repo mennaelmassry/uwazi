@@ -6,10 +6,12 @@ module.exports = {
   displayName: 'Server',
   testMatch: ['**/api/**/specs/*spec.(j|t)s?(x)', '**/shared/**/specs/*spec.(j|t)s?(x)'],
   testEnvironment: 'node',
-  setupFilesAfterEnv: ['<rootDir>/setUpJestServer.js'],
+  rootDir: '../',
+  modulePathIgnorePatterns: ['<rootDir>/prod'],
+  setupFilesAfterEnv: ['<rootDir>/app/setUpJestServer.js'],
   moduleFileExtensions: [...defaults.moduleFileExtensions, 'd.ts'],
   moduleNameMapper: {
-    '^api/(.*)': '<rootDir>/api/$1',
-    '^shared/(.*)': '<rootDir>/shared/$1',
+    '^api/(.*)': '<rootDir>/app/api/$1',
+    '^shared/(.*)': '<rootDir>/app/shared/$1',
   },
 };
