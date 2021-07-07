@@ -214,6 +214,17 @@ export const fixtures = {
         ],
       },
     },
+    // permissions
+    {
+      _id: db.id(),
+      sharedId: 'with permissions but not published',
+      template,
+      language: 'es',
+      title: 'with permissions but not published',
+      published: false,
+      permissions: [{ refId: 'collabId', type: 'user', level: 'read' }],
+    },
+    //metadata filters
     {
       _id: db.id(),
       sharedId: 'inherited 2',
