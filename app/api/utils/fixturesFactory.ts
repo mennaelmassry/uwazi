@@ -1,8 +1,13 @@
 import { ObjectId } from 'mongodb';
 import db from 'api/utils/testing_db';
 import { EntitySchema } from 'shared/types/entityType';
-import { PropertySchema, MetadataSchema, PropertyValueSchema } from 'shared/types/commonTypes';
 import { FileType } from 'shared/types/fileType';
+import {
+  PropertySchema,
+  MetadataSchema,
+  PropertyValueSchema,
+  MetadataObjectSchema,
+} from 'shared/types/commonTypes';
 
 export function getIdMapper() {
   const map = new Map<string, ObjectId>();
