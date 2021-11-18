@@ -91,7 +91,9 @@ export function getFixturesFactory() {
       ...props,
     }),
 
-    metadataValue: (value: PropertyValueSchema) => ({ value }),
+    metadataValue: (value: PropertyValueSchema): MetadataObjectSchema => ({
+      value,
+    }),
 
     thesauri: (name: string, values: Array<string | [string, string]>) => ({
       name,
