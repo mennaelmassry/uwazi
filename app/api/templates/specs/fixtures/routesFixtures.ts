@@ -4,7 +4,8 @@ const templateCommonProperties = [
   {
     _id: '6193bf8c86a5e87060962287',
     localID: 'commonTitle',
-    label: 'Title',
+    originalLabel: 'Title',
+    label: { es: 'Titulo', en: 'Title' },
     name: 'title',
     isCommonProperty: true,
     type: 'text',

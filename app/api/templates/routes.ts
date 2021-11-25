@@ -84,11 +84,21 @@ export default (app: Application) => {
     }
   );
 
-  app.get('/api/templates', (_req, res, next) => {
-    templates
-      .get()
-      .then(response => res.json({ rows: response }))
-      .catch(next);
+  app.get('/api/templates', async (req, res, next) => {
+    try {
+      const templatesList = await templates.get();
+      const response = templatesList.map(template => {
+        const title = template.commonProperties?.find(p => p.name === 'title');
+        if (title) {
+          const translatedTitle = title?.label[req.language] || title.originalLabel;
+          title.label = translatedTitle;
+        }
+        return template;
+      });
+      res.json({ rows: response });
+    } catch {
+      next();
+    }
   });
 
   app.delete(
