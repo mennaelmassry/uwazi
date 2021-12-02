@@ -121,6 +121,7 @@ export interface PropertySchema {
   id?: string;
   localID?: string;
   label: string;
+  originalLabel?: string;
   name: string;
   isCommonProperty?: boolean;
   type:

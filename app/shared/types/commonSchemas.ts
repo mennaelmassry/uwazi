@@ -163,7 +163,7 @@ export const extractedMetadataSchema = {
 
 export const propertySchema = {
   type: 'object',
-  required: ['label', 'type', 'name'],
+  required: ['label', 'type', 'name', 'originalLabel'],
   additionalProperties: false,
   requireOrInvalidContentForSelectFields: true,
   requireRelationTypeForRelationship: true,
@@ -173,6 +173,7 @@ export const propertySchema = {
     id: { type: 'string' },
     localID: { type: 'string' },
     label: { type: 'string', minLength: 1 },
+    originalLabel: { type: 'string', minLength: 1 },
     name: { type: 'string', minLength: 1 },
     isCommonProperty: { type: 'boolean' },
     type: { type: 'string', enum: Object.values(propertyTypes) },
