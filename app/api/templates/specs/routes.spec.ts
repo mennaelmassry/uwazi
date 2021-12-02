@@ -8,6 +8,13 @@ import templates from '../templates';
 import { templateCommonProperties, fixtures, fixtureFactory } from './fixtures/routesFixtures';
 
 jest.mock(
+  '../../auth/authMiddleware.ts',
+  () => () => (_req: Request, _res: Response, next: NextFunction) => {
+    next();
+  }
+);
+
+jest.mock(
   '../../utils/languageMiddleware.ts',
   () => (req: Request, _res: Response, next: NextFunction) => {
     req.language = 'es';
@@ -35,73 +42,6 @@ describe('templates routes', () => {
       .send(body)
       .expect(200);
 
-  const expected = [
-    {
-      name: 'template1',
-      commonProperties: [
-        {
-          label: 'Titulo',
-          name: 'title',
-        },
-        {
-          label: 'Date added',
-          name: 'creationDate',
-          isCommonProperty: true,
-          type: 'date',
-          prioritySorting: false,
-        },
-        {
-          label: 'Date modified',
-          name: 'editDate',
-          isCommonProperty: true,
-          type: 'date',
-          prioritySorting: false,
-        },
-      ],
-      default: true,
-    },
-    {
-      name: 'template2',
-      properties: [
-        {
-          id: 'select_property',
-          label: 'select_property',
-          name: 'select_property',
-          type: 'select',
-        },
-        {
-          id: 'multiselect_property',
-          label: 'multiselect_property',
-          name: 'multiselect_property',
-          type: 'multiselect',
-        },
-      ],
-    },
-    {
-      name: 'template3',
-      properties: [
-        {
-          id: 'select_property',
-          label: 'select_property',
-          name: 'select_property',
-          type: 'select',
-        },
-      ],
-    },
-    {
-      _id: 'template_with_select_id',
-      name: 'template_with_select',
-      properties: [
-        {
-          _id: 'zxc',
-          id: 'select_property',
-          label: 'select_property',
-          name: 'select_property',
-          type: 'select',
-        },
-      ],
-    },
-  ];
   beforeEach(async () => {
     await testingEnvironment.setUp(fixtures, 'templates_index');
     spyOn(translations, 'updateContext').and.returnValue(Promise.resolve());
@@ -111,6 +51,74 @@ describe('templates routes', () => {
 
   describe('GET', () => {
     it('should return all templates by default', async () => {
+      const expected = [
+        {
+          name: 'template1',
+          commonProperties: [
+            {
+              label: 'Titulo',
+              name: 'title',
+            },
+            {
+              label: 'Date added',
+              name: 'creationDate',
+              isCommonProperty: true,
+              type: 'date',
+              prioritySorting: false,
+            },
+            {
+              label: 'Date modified',
+              name: 'editDate',
+              isCommonProperty: true,
+              type: 'date',
+              prioritySorting: false,
+            },
+          ],
+          default: true,
+        },
+        {
+          name: 'template2',
+          properties: [
+            {
+              id: 'select_property',
+              label: 'select_property',
+              name: 'select_property',
+              type: 'select',
+            },
+            {
+              id: 'multiselect_property',
+              label: 'multiselect_property',
+              name: 'multiselect_property',
+              type: 'multiselect',
+            },
+          ],
+        },
+        {
+          name: 'template3',
+          properties: [
+            {
+              id: 'select_property',
+              label: 'select_property',
+              name: 'select_property',
+              type: 'select',
+            },
+          ],
+        },
+        {
+          _id: 'template_with_select_id',
+          name: 'template_with_select',
+          properties: [
+            {
+              _id: 'zxc',
+              id: 'select_property',
+              label: 'select_property',
+              name: 'select_property',
+              type: 'select',
+            },
+          ],
+        },
+      ];
+
       const { body } = await request(app)
         .get('/api/templates')
         .expect(200);
