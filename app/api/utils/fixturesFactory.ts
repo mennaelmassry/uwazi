@@ -81,6 +81,7 @@ export function getFixturesFactory() {
       _id: idMapper(name),
       id: name,
       label: name,
+      originalLabel: name,
       name,
       type,
       ...props,

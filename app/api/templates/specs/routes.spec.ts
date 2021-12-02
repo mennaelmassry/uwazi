@@ -5,7 +5,12 @@ import { testingEnvironment } from 'api/utils/testingEnvironment';
 import translations from 'api/i18n';
 import templateRoutes from '../routes';
 import templates from '../templates';
-import { templateCommonProperties, fixtures, fixtureFactory } from './fixtures/routesFixtures';
+import {
+  templateCommonProperties,
+  fixtures,
+  fixtureFactory,
+  clientCommonProperties,
+} from './fixtures/routesFixtures';
 
 jest.mock(
   '../../auth/authMiddleware.ts',
@@ -25,7 +30,7 @@ jest.mock(
 const templateToSave = {
   name: 'template4',
   properties: [],
-  commonProperties: templateCommonProperties,
+  commonProperties: clientCommonProperties,
 };
 
 const emitToCurrentTenantSpy = jasmine.createSpy('emitToCurrentTenant');
@@ -56,6 +61,7 @@ describe('templates routes', () => {
           name: 'template1',
           commonProperties: [
             {
+              originalLabel: 'Title',
               label: 'Titulo',
               name: 'title',
             },
@@ -157,11 +163,16 @@ describe('templates routes', () => {
     });
 
     it('should update a existing template', async () => {
-      const [firstTemplate] = await templates.get();
+      const { body } = await request(app)
+        .get('/api/templates')
+        .expect(200);
+
+      const [firstTemplate] = body.rows;
       const templateToUpdate = {
         ...firstTemplate,
-        properties: [{ label: 'Numeric', type: 'numeric', localID: 'z0x8wx8xy4' }],
-        commonProperties: templateCommonProperties,
+        properties: [
+          { label: 'Numeric', originalLabel: 'Numeric', type: 'numeric', localID: 'z0x8wx8xy4' },
+        ],
         __v: 0,
       };
 
@@ -225,6 +236,7 @@ describe('templates routes', () => {
         properties: [
           {
             label: 'Numeric',
+            originalLabel: 'Numeric',
             type: 'numeric',
             localID: 'byhrp7qv54i',
             name: 'numeric',
@@ -239,6 +251,7 @@ describe('templates routes', () => {
           properties: [
             {
               label: 'Numeric',
+              originalLabel: 'Numeric',
               type: 'text',
               localID: 'byhrp7qv54i',
               name: 'numeric',

@@ -1,4 +1,10 @@
 import { getFixturesFactory } from 'api/utils/fixturesFactory';
+const fixturer = getFixturesFactory();
+const clientCommonProperties = [
+  fixturer.property('title', 'text', { isCommonProperty: true }),
+  fixturer.property('Date added', 'date', { isCommonProperty: true }),
+  fixturer.property('Date modified', 'date', { isCommonProperty: true }),
+];
 
 const templateCommonProperties = [
   {
@@ -16,6 +22,7 @@ const templateCommonProperties = [
     _id: '6193bf8c86a5e87060962288',
     localID: 'commonCreationDate',
     label: 'Date added',
+    originalLabel: 'Date added',
     name: 'creationDate',
     isCommonProperty: true,
     type: 'date',
@@ -25,6 +32,7 @@ const templateCommonProperties = [
     _id: '6193bf8c86a5e87060962289',
     localID: 'commonEditDate',
     label: 'Date modified',
+    originalLabel: 'Date modified',
     name: 'editDate',
     isCommonProperty: true,
     type: 'date',
@@ -85,4 +93,4 @@ const fixtures = {
   ],
 };
 
-export { templateCommonProperties, fixtures, fixtureFactory };
+export { templateCommonProperties, fixtures, fixtureFactory, clientCommonProperties };
