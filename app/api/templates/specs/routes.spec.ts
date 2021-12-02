@@ -66,7 +66,7 @@ describe('templates routes', () => {
               name: 'title',
             },
             {
-              label: 'Date added',
+              label: 'Fecha de creación', // extend translation logic to all the properties.
               name: 'creationDate',
               isCommonProperty: true,
               type: 'date',
